@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Login — TrackWise{% endblock %}
+{% block content %}
+<section class="card auth-card">
+  <h2>Login</h2>
+  <form id="login-form" method="post" action="{% url 'account:login' %}">
+    {% csrf_token %}
+    <label>Username
+      <input id="login-username" name="username" type="text" placeholder="username" required>
+    </label>
+    <label>Password
+      <div class="pw-wrap">
+        <input id="login-password" name="password" type="password" placeholder="password" required>
+        <button data-target="#login-password" type="button" class="toggle-password">Show</button>
+      </div>
+    </label>
+    <div class="actions">
+      <button type="submit">Login</button>
+      <a class="link" href="{% url 'account:register' %}">Create account</a>
+    </div>
+  </form>
+</section>
+{% endblock %}
