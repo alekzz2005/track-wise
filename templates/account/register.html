@@ -2,31 +2,48 @@
 {% block title %}Register — TrackWise{% endblock %}
 {% block content %}
 <section class="card auth-card">
-  <h2>Create account</h2>
-  <form id="register-form" method="post" action="{% url 'account:register' %}">
-    {% csrf_token %}
-    <label>Username
-      <input id="reg-username" name="username" type="text" placeholder="username" required>
-    </label>
-    <label>Email
-      <input id="reg-email" name="email" type="email" placeholder="email@example.com" required>
-    </label>
-    <label>Password
-      <div class="pw-wrap">
-        <input id="reg-password1" name="password1" type="password" placeholder="password" required>
-        <button data-target="#reg-password1" type="button" class="toggle-password">Show</button>
-      </div>
-    </label>
-    <label>Confirm password
-      <div class="pw-wrap">
-        <input id="reg-password2" name="password2" type="password" placeholder="confirm password" required>
-        <button data-target="#reg-password2" type="button" class="toggle-password">Show</button>
-      </div>
-    </label>
-    <div class="actions">
-      <button type="submit">Register</button>
-      <a class="link" href="{% url 'account:login' %}">Already have an account? Login</a>
-    </div>
-  </form>
+    <h2>Create account</h2>
+    <form id="register-form" method="post" action="{% url 'account:register' %}">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="error-list">
+                {% for error in form.non_field_errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <label>Username
+            {{ form.username }}
+            {{ form.username.errors }}
+        </label>
+        
+        <label>Email
+            {{ form.email }} 
+            {{ form.email.errors }}
+        </label>
+
+        <label>Password
+            <div class="pw-wrap">
+                {{ form.password1 }} 
+                <button data-target="#id_password1" type="button" class="toggle-password">Show</button>
+            </div>
+            {{ form.password1.errors }}
+        </label>
+        
+        <label>Confirm password
+            <div class="pw-wrap">
+                {{ form.password2 }} 
+                <button data-target="#id_password2" type="button" class="toggle-password">Show</button>
+            </div>
+            {{ form.password2.errors }}
+        </label>
+        
+        <div class="actions">
+            <button type="submit">Register</button>
+            <a class="link" href="{% url 'account:login' %}">Already have an account? Login</a>
+        </div>
+    </form>
 </section>
 {% endblock %}

@@ -13,8 +13,9 @@ def register_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             # Save the new user object
-            user = form.save()
-            # Log the new user in immediately
+            user = form.save(commit=False)
+            user.email = form.cleaned_data.get('email')
+            user.save()
             login(request, user)
             messages.success(request, "Account created successfully! Welcome.")
             return redirect('account:dashboard')
