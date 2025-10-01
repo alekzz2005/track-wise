@@ -20,6 +20,8 @@ media/
 # Static files
 staticfiles/
 static_root/
+/static/
+/templates/
 
 # Environment variables
 .env
